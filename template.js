@@ -1,0 +1,1 @@
+module.exports = '<div class="person">\n  <span name="firstName"></span>\n  <span name="lastName"></span>\n  <button class="changeBtn">Change First Name</button>\n</div>';

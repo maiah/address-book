@@ -1,16 +1,16 @@
 {
-  "name": "component-hello-view",
+  "name": "address-book",
   "dependencies": {
     "component/model": "*",
     "component/model-timestamps": "*",
     "component/view": "*",
-    "component/domify": "*"
+    "component/domify": "*",
   },
   "scripts": [
     "index.js",
     "template.js"
   ],
   "styles": [
-    "component-hello-view.css"
+    "address-book.css"
   ]
 }

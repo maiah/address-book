@@ -7,8 +7,8 @@ app.use(express.static(__dirname));
 app.use(connect.bodyParser());
 
 var persons = [
-  { "firstName": "Maiah", "lastName": "Macariola" },
-  { "firstName": "Jame", "lastName": "Macariola" }
+  { "id": 1, "firstName": "Maiah", "lastName": "Superbird" },
+  { "id": 2, "firstName": "James", "lastName": "Macariola" }
 ];
 
 app.get('/person/all', function(req, res) {
@@ -17,9 +17,11 @@ app.get('/person/all', function(req, res) {
 
 app.post('/person', function(req, res) {
 	var person = req.body;
-	console.log('Saving Person:');
-	console.dir(person);
 	persons.push(person);
+});
+
+app.del('/person/:id', function(req, res) {
+	console.log('Deleting: ' + req.path);
 });
 
 app.all('*', function(req, res) {

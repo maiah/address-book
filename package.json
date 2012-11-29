@@ -1,0 +1,10 @@
+{
+  "name": "address-book",
+  "description": "Minimal address-book",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "connect": "*",
+    "express": "*"
+  }
+}

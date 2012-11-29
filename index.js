@@ -5,27 +5,13 @@ var View = require('view');
 var domify = require('domify');
 
 /*
- * The model declaration.
- */
-var Person = model('Person')
-  .attr('firstName')
-  .attr('lastName')
-  .use(timestamps);
-
-Person.all(function(err, items) {
-	if (err) {
-		console.log('Error: ' + err);
-	} else {
-		console.dir(items);
-	}
-});
-
-/*
  * The view declaration.
  */
 var PersonView = function(person) {
-  View.call(this, person, domify(personTmpl));
+	var el = domify(personTmpl);
+  View.call(this, person, el[0]);
   this.bind('click .changeBtn', 'changeName');
+  this.bind('click .deleteBtn', 'deletePerson');
 };
 
 /*
@@ -37,27 +23,69 @@ PersonView.prototype.__proto__ = View.prototype;
  * The view function declaration.
  */
 PersonView.prototype.changeName = function() {
-  if (maiah.firstName() === 'Maiah') {
-    maiah.firstName('James');
-  } else {
-    maiah.firstName('Maiah');
-  }
+	var person = this.obj;
+	var firstName = person.firstName();
+  person.firstName(person.lastName());
+  person.lastName(firstName);
+};
+
+PersonView.prototype.deletePerson = function() {
+	var person = this.obj;
+	person.remove();
+  this.el.parentNode.removeChild(this.el);
 };
 
 /*
- * Create person and view object and bind them together.
+ * The model declaration.
  */
-var maiah = new Person({ "firstName": "Maiah", "lastName": "Macariola" });
-var personView = new PersonView(maiah);
+var Person = model('Person')
+  .attr('id')
+  .attr('firstName')
+  .attr('lastName')
+  .use(timestamps);
 
-maiah.save(function(err) {
+/*
+ * Fetch all the persons from server.
+ */
+Person.all(function(err, persons) {
 	if (err) {
-		console.log('Error while saving person: ' + err);
+		console.log('Error: ' + err);
+	} else {
+		/*
+		 * Create person and view object and bind them together.
+		 */
+		persons.each(function(person) {
+			addPersonToView(person);
+		});
 	}
 });
 
-/*
- * Attach the view to the "p" element in the body.
- */
-var p = document.querySelector('p');
-p.appendChild(personView.el);
+var addPersonToView = function(person) {
+	var myperson = new Person();
+	myperson.id(person.id());
+	myperson.firstName(person.firstName());
+	myperson.lastName(person.lastName());
+	var personView = new PersonView(myperson);
+
+	/*
+	 * Attach the view to the "p" element in the body.
+	 */
+	var p = document.querySelector('p');
+	p.appendChild(personView.el);
+};
+
+var saveButton = document.querySelector('.saveButton');
+saveButton.onclick = function() {
+  var firstName = document.querySelector('.inputFirstName');
+  var lastName = document.querySelector('.inputlastName');
+
+  var person = new Person();
+  person.firstName(firstName.value);
+  person.lastName(lastName.value);
+
+  person.save();
+  addPersonToView(person);
+
+  firstName.value = '';
+  lastName.value = '';
+};

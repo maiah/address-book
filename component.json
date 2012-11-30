@@ -4,7 +4,7 @@
     "component/model": "*",
     "component/model-timestamps": "*",
     "component/view": "*",
-    "component/domify": "*",
+    "component/domify": "*"
   },
   "scripts": [
     "index.js",

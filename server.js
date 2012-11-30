@@ -7,28 +7,34 @@ app.use(express.static(__dirname));
 app.use(connect.bodyParser());
 
 var persons = [
-  { "id": 1, "firstName": "Maiah", "lastName": "Superbird" },
-  { "id": 2, "firstName": "James", "lastName": "Macariola" }
+  { "id": 1, "firstName": "Maiah", "lastName": "Superbird", "address": "Manila", "email": "a@a.com", "phone": "1234567" },
+  { "id": 2, "firstName": "James", "lastName": "Macariola", "address": "Manila", "email": "b@b.com", "phone": "8901234" }
 ];
 
 app.get('/person/all', function(req, res) {
-	res.send(persons);
+  res.send(persons);
 });
 
 app.post('/person', function(req, res) {
-	var person = req.body;
-	persons.push(person);
+  var person = req.body;
+  persons.push(person);
 });
 
 app.del('/person/:id', function(req, res) {
-	console.log('Deleting: ' + req.path);
+  var idToDelete = parseInt(req.params.id);
+  for (var i = 0; i < persons.length; i++) {
+    var person = persons[i];
+    if (idToDelete === person.id) {
+      persons.splice(i, 1);
+    }
+  };
 });
 
 app.all('*', function(req, res) {
-	console.log('PATH: ' + req.path);
-	console.log('METHOD: ' + req.method);
-	console.log('BODY:' + req.body);
-	res.sendfile('index.html');
+  console.log('PATH: ' + req.path);
+  console.log('METHOD: ' + req.method);
+  console.log('BODY:' + req.body);
+  res.sendfile('index.html');
 });
 
 app.listen(7000);

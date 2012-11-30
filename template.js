@@ -1,1 +1,1 @@
-module.exports = '<div class="person">\n  <button class="deleteBtn">X</button>\n  <span name="firstName"></span>\n  <span name="lastName"></span>\n  <button class="changeBtn">Change First Name</button>\n</div>';
+module.exports = '<div class="person">\n  <button class="deleteBtn">X</button>\n  <span name="firstName"></span>\n  <span name="lastName"></span>\n  <span name="address"></span>\n  <span name="email"></span>\n  <span name="phone"></span>\n  <button class="editBtn">Edit</button>\n</div>';

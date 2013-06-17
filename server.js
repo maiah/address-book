@@ -8,7 +8,7 @@ app.use(connect.bodyParser());
 
 var persons = [
   { "id": 1, "firstName": "Maiah", "lastName": "Superbird", "address": "Manila", "email": "a@a.com", "phone": "1234567" },
-  { "id": 2, "firstName": "James", "lastName": "Macariola", "address": "Manila", "email": "b@b.com", "phone": "8901234" }
+  { "id": 2, "firstName": "James", "lastName": "Macariola", "address": "Laguna", "email": "b@b.com", "phone": "8901234" }
 ];
 
 app.get('/person/all', function(req, res) {

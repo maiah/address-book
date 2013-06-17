@@ -11,7 +11,7 @@ var saveButton = document.querySelector('.saveButton');
  */
 var PersonView = function(person) {
   var el = domify(personTmpl);
-  View.call(this, person, el[0]);
+  View.call(this, person, el);
   this.bind('click .editBtn', 'editPerson');
   this.bind('click .deleteBtn', 'deletePerson');
 };
@@ -40,12 +40,15 @@ PersonView.prototype.editPerson = function() {
   inputPhoneEl.value = person.phone();
 
   var pEl = document.querySelector('p');
-  pEl.removeChild(saveButton);
+
+  if (saveButton.parentNode !== null) {
+    pEl.removeChild(saveButton);
+  }
 
   var editButton = document.createElement('button');
   editButton.appendChild(document.createTextNode('Edit'));
 
-	var cancelButton = document.createElement('button');
+  var cancelButton = document.createElement('button');
   cancelButton.appendChild(document.createTextNode('Cancel'));
 
   pEl.appendChild(editButton);
